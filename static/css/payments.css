@@ -1,0 +1,18 @@
+.payment-grid {
+    display: grid;
+    gap: 12px;
+    max-width: 400px;
+}
+
+.pay-btn {
+    padding: 14px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.stripe { background: #635bff; color: white; }
+.cashapp { background: #00d632; color: white; }
+.zelle { background: #6d1ed4; color: white; }
+.wire { background: #444; color: white; }

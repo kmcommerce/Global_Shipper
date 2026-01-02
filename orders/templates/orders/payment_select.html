@@ -1,0 +1,23 @@
+<h2>Choose Payment Method</h2>
+
+<div class="payment-grid">
+    <form method="post">
+        {% csrf_token %}
+
+        <button name="payment_method" value="stripe" class="pay-btn stripe">
+            💳 Pay with Card / Apple Pay
+        </button>
+
+        <button name="payment_method" value="cashapp" class="pay-btn cashapp">
+            💵 Cash App
+        </button>
+
+        <button name="payment_method" value="zelle" class="pay-btn zelle">
+            🏦 Zelle
+        </button>
+
+        <button name="payment_method" value="wire" class="pay-btn wire">
+            🌍 Wire Transfer
+        </button>
+    </form>
+</div>

@@ -1,0 +1,47 @@
+.payment-container {
+    display: flex;
+    gap: 2rem;
+    max-width: 900px;
+}
+
+.order-summary, .payment-box {
+    background: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.total {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+#card-element {
+    padding: 12px;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    background: white;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+}
+
+button:disabled {
+    opacity: 0.6;
+}
+
+.test-mode-banner {
+    background: #fff3cd;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}

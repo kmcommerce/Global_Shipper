@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>My Orders - Status Tracking</h2>
+
+{% if orders %}
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Service</th>
+                <th>Origin</th>
+                <th>Destination</th>
+                <th>Status</th>
+                <th>Payment Status</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.service.name }}</td>
+                <td>{{ order.origin_country }}</td>
+                <td>{{ order.destination_country }}</td>
+                <td>{{ order.get_status_display }}</td>
+                <td>{{ order.get_payment_status_display }}</td>
+                <td>${{ order.total_amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You have no orders yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,41 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1>My Orders</h1>
+
+    {% if orders %}
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Service</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>#{{ order.id }}</td>
+                    <td>{{ order.service.name }}</td>
+                    <td>{{ order.origin }}</td>
+                    <td>{{ order.destination }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>${{ order.total_price }}</td>
+                    <td>{{ order.created_at|date:"M d, Y" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have not placed any orders yet.</p>
+        <a href="{% url 'services:list' %}" class="btn">Browse Services</a>
+    {% endif %}
+</div>
+{% endblock %}

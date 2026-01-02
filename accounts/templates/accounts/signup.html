@@ -1,0 +1,177 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Sign Up - GlobalShipper{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box">
+        <h2>Create Your Account</h2>
+        <p class="auth-subtitle">Join GlobalShipper for fast and reliable shipping</p>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <form method="post" class="auth-form" id="signupForm">
+            {% csrf_token %}
+            
+            <!-- Account Type -->
+            <div class="form-group">
+                <label>Account Type:</label>
+                <div class="radio-group">
+                    {% for value, label in form.account_type.field.choices %}
+                        <label class="radio-label">
+                            <input type="radio" name="account_type" value="{{ value }}" 
+                                   {% if form.account_type.value == value %}checked{% endif %}
+                                   onchange="toggleCompanyFields()">
+                            {{ label }}
+                        </label>
+                    {% endfor %}
+                </div>
+                {% if form.account_type.errors %}
+                    <span class="error">{{ form.account_type.errors.0 }}</span>
+                {% endif %}
+            </div>
+            
+            <!-- Basic Information -->
+            <div class="form-group">
+                <label for="id_username">Username:</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <span class="error">{{ form.username.errors.0 }}</span>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_email">Email:</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <span class="error">{{ form.email.errors.0 }}</span>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_phone_number">Phone Number:</label>
+                {{ form.phone_number }}
+                {% if form.phone_number.errors %}
+                    <span class="error">{{ form.phone_number.errors.0 }}</span>
+                {% endif %}
+            </div>
+            
+            <!-- Company Fields (hidden by default) -->
+            <div id="companyFields" style="display: none;">
+                <div class="form-group">
+                    <label for="id_company_name">Company Name:</label>
+                    {{ form.company_name }}
+                    {% if form.company_name.errors %}
+                        <span class="error">{{ form.company_name.errors.0 }}</span>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_company_registration">Registration Number:</label>
+                    {{ form.company_registration }}
+                    {% if form.company_registration.errors %}
+                        <span class="error">{{ form.company_registration.errors.0 }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Address -->
+            <h3 class="section-title">Address Information</h3>
+            
+            <div class="form-group">
+                <label for="id_street_address">Street Address:</label>
+                {{ form.street_address }}
+                {% if form.street_address.errors %}
+                    <span class="error">{{ form.street_address.errors.0 }}</span>
+                {% endif %}
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="id_city">City:</label>
+                    {{ form.city }}
+                    {% if form.city.errors %}
+                        <span class="error">{{ form.city.errors.0 }}</span>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_state_province">State/Province:</label>
+                    {{ form.state_province }}
+                    {% if form.state_province.errors %}
+                        <span class="error">{{ form.state_province.errors.0 }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="id_postal_code">Postal Code:</label>
+                    {{ form.postal_code }}
+                    {% if form.postal_code.errors %}
+                        <span class="error">{{ form.postal_code.errors.0 }}</span>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_country">Country:</label>
+                    {{ form.country }}
+                    {% if form.country.errors %}
+                        <span class="error">{{ form.country.errors.0 }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Password -->
+            <h3 class="section-title">Security</h3>
+            
+            <div class="form-group">
+                <label for="id_password1">Password:</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <span class="error">{{ form.password1.errors.0 }}</span>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_password2">Confirm Password:</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <span class="error">{{ form.password2.errors.0 }}</span>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="btn-primary btn-block">Create Account</button>
+        </form>
+        
+        <p class="auth-footer">
+            Already have an account? <a href="{% url 'accounts:login' %}">Login here</a>
+        </p>
+    </div>
+</div>
+
+<script>
+function toggleCompanyFields() {
+    const accountType = document.querySelector('input[name="account_type"]:checked').value;
+    const companyFields = document.getElementById('companyFields');
+    
+    if (accountType === 'company') {
+        companyFields.style.display = 'block';
+    } else {
+        companyFields.style.display = 'none';
+    }
+}
+
+// Run on page load
+document.addEventListener('DOMContentLoaded', function() {
+    toggleCompanyFields();
+});
+</script>
+{% endblock %}

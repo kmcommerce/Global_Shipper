@@ -1,0 +1,12 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>Order Dashboard Summary</h1>
+
+<ul>
+    <li>Total Orders: {{ total_orders }}</li>
+    <li>Pending Orders: {{ pending_orders }}</li>
+    <li>Paid Orders: {{ paid_orders }}</li>
+</ul>
+
+<a href="{% url 'admin:orders_order_changelist' %}">Go to Orders List</a>
+{% endblock %}

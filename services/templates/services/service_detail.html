@@ -1,0 +1,31 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ service.name }}</h1>
+
+<p>
+    <strong>Service Type:</strong>
+    {{ service.get_service_type_display }}
+</p>
+
+<p>
+    <strong>Route:</strong>
+    {{ service.get_origin_display }}
+    →
+    {{ service.get_destination_country_display }}
+</p>
+
+{% if service.description %}
+    <p>{{ service.description }}</p>
+{% endif %}
+
+<ul>
+    <li><strong>Base Price:</strong> ${{ service.base_price }}</li>
+    <li><strong>Estimated Delivery:</strong> {{ service.shipping_time_days }} days</li>
+</ul>
+
+<a href="{% url 'orders:checkout' service.id %}">
+    Book Now
+</a>
+{% endblock %}

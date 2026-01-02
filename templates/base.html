@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GlobalShipper - Worldwide Shipping Solutions{% endblock %}</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stripe.css' %}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="{% url 'core:index' %}">GlobalShipper</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'core:index' %}">Home</a></li>
+                
+                {% if user.is_authenticated %}
+
+                    <li><a href="#">Services</a></li>
+                    <a href="{% url 'core:index' %}">Home</a>
+                    <li><a href="#">Orders</a></li>
+                    <li><a href="{% url 'accounts:profile' %}">My Account</a></li>
+                    <a href="{% url 'accounts:password_change' %}">Change Password</a>
+                    <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                {% else %}
+                    
+                    
+                    <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                    <li><a href="{% url 'accounts:signup' %}" class="btn-primary">Sign Up</a></li>
+                {% endif %}
+                 <!-- FAQ & Contact always visible -->
+                 <a href="{% url 'core:faq' %}">FAQ</a>
+                 <a href="{% url 'core:contact' %}">Contact</a>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>GlobalShipper</h3>
+                    <p>Your trusted partner for worldwide shipping solutions.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'core:index' %}">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@globalshipper.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 GlobalShipper. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

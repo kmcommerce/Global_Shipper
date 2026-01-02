@@ -1,0 +1,59 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Verify Account - GlobalShipper{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box">
+        <h2>Verify Your Account</h2>
+        <p class="auth-subtitle">
+            We've sent a verification code to your 
+            {% if verification_method == 'email' %}
+                email: <strong>{{ user.email }}</strong>
+            {% else %}
+                phone: <strong>{{ user.phone_number }}</strong>
+            {% endif %}
+        </p>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_verification_code">Enter Verification Code:</label>
+                {{ form.verification_code }}
+                {% if form.verification_code.errors %}
+                    <span class="error">{{ form.verification_code.errors.0 }}</span>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="btn-primary btn-block">Verify</button>
+        </form>
+        
+        <div class="verification-options">
+            <p>
+                <a href="{% url 'accounts:resend_code' %}">Resend verification code</a>
+            </p>
+            
+            <form method="post" action="{% url 'accounts:switch_verification' %}">
+                {% csrf_token %}
+                {% if verification_method == 'email' %}
+                    <input type="hidden" name="method" value="phone">
+                    <button type="submit" class="btn-link">Verify with phone instead</button>
+                {% else %}
+                    <input type="hidden" name="method" value="email">
+                    <button type="submit" class="btn-link">Verify with email instead</button>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

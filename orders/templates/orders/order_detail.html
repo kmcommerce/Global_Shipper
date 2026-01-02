@@ -1,0 +1,16 @@
+{% if order.quote_status == "quoted" %}
+<form method="post" action="{% url 'orders:accept_quote' order.id %}">
+    {% csrf_token %}
+    <button class="btn btn-success">
+        Accept Quote
+    </button>
+</form>
+{% endif %}
+
+{% if order.quote_status == "accepted" and order.payment_status == "unpaid" %}
+    <a href="{% url 'orders:stripe_checkout' order.id %}"
+       class="btn btn-primary">
+        Proceed to Payment
+    </a>
+{% endif %}
+

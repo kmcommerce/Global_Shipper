@@ -1,0 +1,112 @@
+
+{% extends 'base.html' %}
+
+{% block title %}My Profile - GlobalShipper{% endblock %}
+
+{% block content %}
+
+<h2>My Profile</h2>
+
+<p><strong>Email:</strong> {{ user.email }}</p>
+<p><strong>Account Type:</strong> {{ user.get_account_type_display }}</p>
+
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Save Changes</button>
+</form>
+
+<div class="profile-container">
+    <div class="profile-header">
+        <h1>My Profile</h1>
+        <a href="{% url 'accounts:logout' %}" class="btn-secondary">Logout</a>
+    </div>
+    
+    <div class="profile-content">
+        <div class="profile-section">
+            <h2>Account Information</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>Account Type:</label>
+                    <span>{{ user.get_account_type_display }}</span>
+                </div>
+                
+                {% if user.account_type == 'company' %}
+                    <div class="info-item">
+                        <label>Company Name:</label>
+                        <span>{{ user.company_name }}</span>
+                    </div>
+                    
+                    {% if user.company_registration %}
+                        <div class="info-item">
+                            <label>Registration Number:</label>
+                            <span>{{ user.company_registration }}</span>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="info-item">
+                        <label>Name:</label>
+                        <span>{{ user.get_full_name|default:"Not provided" }}</span>
+                    </div>
+                {% endif %}
+                
+                <div class="info-item">
+                    <label>Username:</label>
+                    <span>{{ user.username }}</span>
+                </div>
+                
+                <div class="info-item">
+                    <label>Email:</label>
+                    <span>
+                        {{ user.email }}
+                        {% if user.is_email_verified %}
+                            <span class="badge badge-success">✓ Verified</span>
+                        {% else %}
+                            <span class="badge badge-warning">Not Verified</span>
+                        {% endif %}
+                    </span>
+                </div>
+                
+                <div class="info-item">
+                    <label>Phone:</label>
+                    <span>
+                        {{ user.phone_number }}
+                        {% if user.is_phone_verified %}
+                            <span class="badge badge-success">✓ Verified</span>
+                        {% else %}
+                            <span class="badge badge-warning">Not Verified</span>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile-section">
+            <h2>Address</h2>
+            <div class="address-display">
+                <p>{{ user.street_address }}</p>
+                <p>{{ user.city }}, {{ user.state_province }} {{ user.postal_code }}</p>
+                <p>{{ user.country }}</p>
+            </div>
+        </div>
+        
+        <div class="profile-section">
+            <h2>Account Status</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>Member Since:</label>
+                    <span>{{ user.created_at|date:"F d, Y" }}</span>
+                </div>
+                
+                <div class="info-item">
+                    <label>Last Updated:</label>
+                    <span>{{ user.updated_at|date:"F d, Y" }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

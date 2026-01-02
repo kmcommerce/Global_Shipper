@@ -1,0 +1,17 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Order Confirmed 🎉</h1>
+
+<p>Thank you for your order!</p>
+
+<ul>
+    <li><strong>Service:</strong> {{ order.service.name }}</li>
+    <li><strong>Total Price:</strong> ${{ order.total_price }}</li>
+    <li><strong>Payment Method:</strong> {{ order.get_payment_method_display }}</li>
+    <li><strong>Status:</strong> {{ order.get_status_display }}</li>
+</ul>
+
+<a href="{% url 'core:index' %}">Back to Home</a>
+{% endblock %}

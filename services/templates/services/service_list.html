@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Our Shipping Services</h1>
+
+{% if services %}
+    <ul>
+        {% for service in services %}
+            <li style="margin-bottom: 20px;">
+                <h3>{{ service.name }}</h3>
+
+                <p>
+                    <strong>Route:</strong>
+                    {{ service.get_origin_display }}
+                    →
+                    {{ service.get_destination_country_display }}
+                </p>
+
+                <p>
+                    <strong>Service Type:</strong>
+                    {{ service.get_service_type_display }}
+                </p>
+
+                <p>
+                    <strong>Starting Price:</strong> ${{ service.base_price }} <br>
+                    <strong>Estimated Delivery:</strong> {{ service.shipping_time_days }} days
+                </p>
+
+                <a href="{% url 'services:detail' service.id %}">
+                    View details
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No services available at the moment.</p>
+{% endif %}
+
+{% endblock %}

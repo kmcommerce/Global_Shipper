@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq-list">
+    {% for faq in faqs %}
+    <div class="faq-item">
+        <h4>{{ faq.question }}</h4>
+        <p>{{ faq.answer }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
