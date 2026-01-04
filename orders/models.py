@@ -1,18 +1,20 @@
-
 import uuid
 from django.db import models
 from django.conf import settings
-from services.models import Service
 
 
 class Order(models.Model):
-
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
 
     customer = models.ForeignKey(
-    settings.AUTH_USER_MODEL,
-    on_delete=models.CASCADE
-)
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="orders"
+    )
 
     SERVICE_CHOICES = [
         ('FCL', 'Full Container Load'),
@@ -20,7 +22,10 @@ class Order(models.Model):
         ('DTD', 'Door to Door'),
     ]
 
-    service_type = models.CharField(max_length=10, choices=SERVICE_CHOICES)
+    service_type = models.CharField(
+        max_length=10,
+        choices=SERVICE_CHOICES
+    )
 
     # ---------------------------------
     # ORIGIN & DESTINATION
@@ -65,12 +70,34 @@ class Order(models.Model):
         choices=DESTINATION_COUNTRY_CHOICES
     )
 
-     # Quote fields
-    maersk_ocean_rate = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    booking_fee = models.DecimalField(max_digits=10, decimal_places=2, default=600.00)
-    quoted_total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    # ---------------------------------
+    # QUOTE FIELDS
+    # ---------------------------------
 
-    # Origin logistics (FCL quote request)
+    maersk_ocean_rate = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True
+    )
+
+    booking_fee = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=600.00
+    )
+
+    quoted_total = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True
+    )
+
+    # ---------------------------------
+    # ORIGIN LOGISTICS
+    # ---------------------------------
+
     origin_address = models.TextField()
     dropoff_date = models.DateField(null=True, blank=True)
     pickup_date = models.DateField(null=True, blank=True)
@@ -82,18 +109,22 @@ class Order(models.Model):
         ('declined', 'Declined'),
     ]
 
-    quote_status = models.CharField(max_length=20, choices=QUOTE_STATUS, default='new')
+    quote_status = models.CharField(
+        max_length=20,
+        choices=QUOTE_STATUS,
+        default='new'
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     quote_sent_at = models.DateTimeField(null=True, blank=True)
     quote_accepted_at = models.DateTimeField(null=True, blank=True)
 
     PAYMENT_METHOD_CHOICES = [
-    ('stripe', 'Credit / Debit Card (Apple Pay supported)'),
-    ('cashapp', 'Cash App'),
-    ('zelle', 'Zelle'),
-    ('wire', 'Wire Transfer'),
-]
+        ('stripe', 'Credit / Debit Card (Apple Pay supported)'),
+        ('cashapp', 'Cash App'),
+        ('zelle', 'Zelle'),
+        ('wire', 'Wire Transfer'),
+    ]
 
     PAYMENT_STATUS_CHOICES = [
         ('unpaid', 'Unpaid'),
@@ -101,11 +132,11 @@ class Order(models.Model):
     ]
 
     payment_method = models.CharField(
-    max_length=20,
-    choices=PAYMENT_METHOD_CHOICES,
-    blank=True,
-    null=True
-)
+        max_length=20,
+        choices=PAYMENT_METHOD_CHOICES,
+        blank=True,
+        null=True
+    )
 
     payment_status = models.CharField(
         max_length=20,
@@ -119,6 +150,8 @@ class Order(models.Model):
         null=True
     )
 
+    class Meta:
+        ordering = ['-created_at']
 
     def __str__(self):
-         return f"Order {self.id} | {self.customer.username} | {{self.service_type}}"
+        return f"Order {self.id} | {self.customer.username} | {self.service_type}"

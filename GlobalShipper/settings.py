@@ -8,6 +8,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 ALLOWED_HOSTS = ['.onrender.com', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
@@ -60,15 +62,20 @@ WSGI_APPLICATION = 'GlobalShipper.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL'),
-        conn_max_age=600
+        conn_max_age=600,
         
     )
 }
 
-if DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql':
-    DATABASES['default']['OPTIONS'] = {'sslmode': 'require'}
+# Only apply SSL settings for PostgreSQL
+if DATABASES["default"]["ENGINE"] == "django.db.backends.postgresql":
+    DATABASES["default"]["OPTIONS"] = {
+        "sslmode": "require"
+    }
 
 
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
