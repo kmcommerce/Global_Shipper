@@ -9,7 +9,9 @@ from .models import Order
 from .forms import FCLQuoteForm
 import stripe
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+if settings.STRIPE_SECRET_KEY:
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
 # -----------------------------------
 # FCL QUOTE REQUEST (Customer)
 # -----------------------------------
