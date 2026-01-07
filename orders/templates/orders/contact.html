@@ -1,5 +1,7 @@
-
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact Us - GlobalShipper{% endblock %}
 
 {% block content %}
 <div class="contact-wrapper">
@@ -21,7 +23,7 @@
                     <div class="contact-body">
                         {% if messages %}
                             {% for message in messages %}
-                                <div class="alert alert-success-custom">
+                                <div class="alert-success-custom">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
                                     </svg>
@@ -42,9 +44,6 @@
                                         First Name
                                     </label>
                                     {{ form.first_name }}
-                                    {% if form.first_name.errors %}
-                                        <span class="error-message">{{ form.first_name.errors.0 }}</span>
-                                    {% endif %}
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <label for="id_last_name">
@@ -54,9 +53,6 @@
                                         Last Name
                                     </label>
                                     {{ form.last_name }}
-                                    {% if form.last_name.errors %}
-                                        <span class="error-message">{{ form.last_name.errors.0 }}</span>
-                                    {% endif %}
                                 </div>
                             </div>
 
@@ -68,9 +64,6 @@
                                     Email Address
                                 </label>
                                 {{ form.email }}
-                                {% if form.email.errors %}
-                                    <span class="error-message">{{ form.email.errors.0 }}</span>
-                                {% endif %}
                             </div>
 
                             <div class="mb-4">
@@ -81,9 +74,6 @@
                                     Phone Number
                                 </label>
                                 {{ form.phone }}
-                                {% if form.phone.errors %}
-                                    <span class="error-message">{{ form.phone.errors.0 }}</span>
-                                {% endif %}
                             </div>
 
                             <div class="mb-4">
@@ -94,9 +84,6 @@
                                     Your Message
                                 </label>
                                 {{ form.message }}
-                                {% if form.message.errors %}
-                                    <span class="error-message">{{ form.message.errors.0 }}</span>
-                                {% endif %}
                             </div>
 
                             <div class="text-center">

@@ -1,3 +1,189 @@
+/* =========================
+   GLOBAL STYLES
+========================= */
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    background: #0d47a1;
+    color: #fff;
+    padding: 15px 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo a {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.navbar .nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.navbar .nav-links li a,
+.navbar .nav-links a.btn-primary {
+    color: #fff;
+    text-decoration: none;
+    padding: 6px 12px;
+    transition: all 0.3s ease;
+}
+
+.navbar .nav-links a:hover,
+.navbar .nav-links a.btn-primary:hover {
+    background: #1565c0;
+    border-radius: 6px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.btn-primary {
+    background: #ff9800;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background: #ff5722;
+    cursor: pointer;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+    background: #0d47a1;
+    color: #fff;
+    padding: 30px 0;
+    margin-top: 40px;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.footer .footer-section h3,
+.footer .footer-section h4 {
+    margin-bottom: 10px;
+}
+
+.footer .footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer .footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* =========================
+   MESSAGES
+========================= */
+.messages-container {
+    max-width: 1200px;
+    margin: 1rem auto;
+    padding: 0 20px;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    animation: slideInDown 0.3s ease-out;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 /* =========================
    ENHANCED CONTACT PAGE STYLING
@@ -80,6 +266,8 @@
     margin-bottom: 20px;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 1;
 }
 
 .contact-header h2 {
@@ -87,6 +275,8 @@
     font-size: 2.5rem;
     margin-bottom: 15px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
 }
 
 .contact-header p {
@@ -94,6 +284,8 @@
     opacity: 0.95;
     font-size: 1.1rem;
     line-height: 1.6;
+    position: relative;
+    z-index: 1;
 }
 
 .contact-body {
@@ -165,17 +357,6 @@
     animation: slideInDown 0.5s ease-out;
 }
 
-@keyframes slideInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 .btn-send {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -243,8 +424,71 @@
     font-size: 0.95rem;
 }
 
+/* Grid System for Contact Page */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col-md-4,
+.col-md-6,
+.col-lg-8 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-lg-8 {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+}
+
+.col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.col-md-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
+    .navbar .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .navbar .nav-links {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+    
     .contact-wrapper {
         padding: 40px 0;
     }
@@ -273,49 +517,15 @@
     .info-box {
         margin-bottom: 20px;
     }
-}
-
-/* Loading Animation for Submit Button */
-.btn-send.loading {
-    pointer-events: none;
-    opacity: 0.7;
-}
-
-.btn-send.loading::after {
-    content: '';
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-    margin-left: 10px;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* Input Validation States */
-.contact-body input:invalid:not(:placeholder-shown),
-.contact-body textarea:invalid:not(:placeholder-shown) {
-    border-color: #e74c3c;
-}
-
-.contact-body input:valid:not(:placeholder-shown),
-.contact-body textarea:valid:not(:placeholder-shown) {
-    border-color: #27ae60;
-}
-
-/* Floating Label Effect (Optional Enhancement) */
-.form-group {
-    position: relative;
-    margin-bottom: 25px;
-}
-
-.contact-body input::placeholder,
-.contact-body textarea::placeholder {
-    color: #95a5a6;
-    font-size: 0.95rem;
+    
+    .col-md-4,
+    .col-md-6,
+    .col-lg-8 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    .footer .footer-content {
+        flex-direction: column;
+    }
 }
