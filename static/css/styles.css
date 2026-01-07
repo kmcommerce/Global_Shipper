@@ -541,3 +541,75 @@ main {
         align-items: center;
     }
 }
+
+/* =========================
+   CONTACT PAGE STYLING
+========================= */
+
+.contact-wrapper {
+    min-height: 100vh;
+    padding: 60px 0;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.contact-card {
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.contact-header {
+    background: linear-gradient(135deg, #ff9800, #ff5722);
+    color: #fff;
+    padding: 35px;
+}
+
+.contact-header h2 {
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.contact-header p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+.contact-body {
+    padding: 35px;
+}
+
+.contact-body label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.contact-body input,
+.contact-body textarea {
+    width: 100%;
+    border-radius: 8px;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+}
+
+.contact-body input:focus,
+.contact-body textarea:focus {
+    outline: none;
+    border-color: #ff9800;
+    box-shadow: 0 0 0 0.15rem rgba(255, 152, 0, 0.25);
+}
+
+.btn-send {
+    background: linear-gradient(135deg, #1e88e5, #1565c0);
+    color: white;
+    padding: 12px 40px;
+    border-radius: 30px;
+    font-weight: 600;
+    border: none;
+    transition: 0.3s ease;
+}
+
+.btn-send:hover {
+    background: linear-gradient(135deg, #1565c0, #0d47a1);
+    transform: translateY(-2px);
+}
