@@ -5,15 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 from .forms import ProfileUpdateForm
-
 from .forms import SignUpForm, LoginForm, VerificationForm
 from .models import User
-from .utils import (
-    send_email_verification,
-    send_phone_verification,
-    is_code_expired
-)
-
+#from .utils import (
+    #send_email_verification,
+    #send_phone_verification,
+    #is_code_expired
+#)
 
 def signup_view(request):
     """User registration"""
@@ -24,20 +22,17 @@ def signup_view(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False
+            user.is_active = True  # ← Changed from False to True
             user.save()
 
-            # Store pending verification
-            request.session['pending_user_id'] = user.id
-            request.session['verification_method'] = 'email'
-
-            send_email_verification(user)
-
+            # Log the user in immediately
+            login(request, user)
+            
             messages.success(
                 request,
-                'Account created! Please verify your email.'
+                'Account created successfully! Welcome to GlobalShipper.'
             )
-            return redirect('accounts:verify')
+            return redirect('core:index')  # ← Go to homepage instead
     else:
         form = SignUpForm()
 
